@@ -67,12 +67,11 @@ export default {
     flex-direction: column;
     flex: 1;
     border: 1px solid #c4c4c4;
-    padding: 14px 20px 10px 20px;
+    padding: 2px 19px 20px 20px;
 }
 
 .product-list__header-label {
     color: #333;
-    font-family: OpenSans;
     font-size: 15px;
     font-weight: 600;
 }

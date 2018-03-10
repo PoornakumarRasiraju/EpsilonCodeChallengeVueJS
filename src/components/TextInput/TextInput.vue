@@ -1,6 +1,6 @@
 <template>
     <div class="text-input">
-        <p class="text-input__label">{{label}}</p>
+        <label class="text-input__label">{{label}}</label>
         <input 
             type="text"
             :maxlength="maxlength"
@@ -47,6 +47,11 @@ export default {
 $input-label-color: #333;
 $input-border-color: #919da9;
 $placeholder-color: #7a8594;
+
+.text-input {
+    display: flex;
+    flex-direction: column;
+}
 
 .text-input__label {
     color: $input-label-color;

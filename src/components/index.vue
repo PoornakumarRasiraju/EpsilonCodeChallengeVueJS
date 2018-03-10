@@ -1,6 +1,6 @@
 <template>
   <section class="products">
-    <h1>Product List</h1>
+    <h1 class="products__header-text">Product List</h1>
     <div class="products__section">
       <product-list></product-list>
       <add-new-product></add-new-product>
@@ -28,9 +28,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.products__header-text {
+  color: #333;
+  font-size: 22px;
+  font-weight: normal;
+}
+
 .products__section {
   display: flex;
   flex: 1;
+  align-items: flex-start;
 }
 
 .products__table {

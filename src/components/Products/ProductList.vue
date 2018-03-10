@@ -71,7 +71,8 @@ $td-label-color: #333;
 
 .product-list {
     display: flex;
-    flex: 1;
+    flex: 3;
+    margin-right: 30px;
 }
 
 .product-list__table {
@@ -94,10 +95,16 @@ tbody {
 }
 
 th {
+    border-right: 1px solid #fff;
     color: $th-label-color;
     font-weight: 600;
     padding: 11px 10px 12px 15px;
     text-align: left;
+
+    &:last-child {
+        border-right: none;
+    }
+
 }
 
 td {
