@@ -5,16 +5,22 @@
         <table class="product-list__table">
             <thead>
                 <tr>
-                    <th v-for="column in columns">
-                        {{column}}
+                    <th v-for="column in columns"
+                        v-on:click="sortBy(column)">
+                        <span class="product-list__header-label">{{column}}</span>
+                        <i class="fas" 
+                            v-if="column == sortColumn" 
+                            v-bind:class="ascending ? 'fa-caret-up' : 'fa-caret-down'">
+                        </i>
                     </th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="product in products">
-                    <td>{{ product.name }}</td>
+                <tr v-for="row in rows">
+                    <td v-for="column in columns"> {{row[column]}}</td>
+                    <!-- <td>{{ product.name }}</td>
                     <td>{{ product.price }}</td>
-                    <td>{{ product.category }}</td>
+                    <td>{{ product.category }}</td> -->
                 </tr>
             </tbody>
         </table>
@@ -32,10 +38,12 @@ export default {
     data() {
         return {
             sortKey: 'name',
+            ascending: false,
+            sortColumn: '',
             reverse: false,
             search: '',
-            columns: ['Product Name', 'Price', 'Category'],
-            products: []
+            columns: ['name', 'price', 'category'],
+            rows: []
         };
     },
     methods: {
@@ -43,16 +51,32 @@ export default {
             const URL = 'http://usweb.dotomi.com/resources/swfs/cookies.json';
 
             return this.$http.get(URL)
-                    .then( response => {
-                        this.products = response.body;
-                    })
-                    .catch( error => {
-                        console.log(error);
-                    });
+                .then( response => {
+                    this.rows = response.body;
+                })
+                .catch( error => {
+                    console.log(error);
+                });
         },
-        sortBy: function(sortKey) {
-            this.reverse = (this.sortKey == sortKey) ? ! this.reverse : false;
-            this.sortKey = sortKey;
+        sortBy(column) {
+            if (this.sortColumn === column) {
+                this.ascending = !this.ascending;
+            } else {
+                this.ascending = true;
+                this.sortColumn = column;
+            }
+
+            let ascending = this.ascending;
+
+            this.rows.sort(function(a, b) {
+                if (a[column] > b[column]) {
+                    return ascending ? 1 : -1
+                } else if (a[column] < b[column]) {
+                    return ascending ? -1 : 1
+                }
+
+                return 0;
+            })
         }
     },
     mounted() {
@@ -82,6 +106,16 @@ $td-label-color: #333;
     width: 100%;
 }
 
+.product-list__header-label {
+    margin-right: 15px;
+}
+
+.fas {
+    font-size: 18px;
+    position: absolute;
+    top: 8px;
+}
+
 thead {
     background-color: $thead-bg-color;
 }
@@ -97,7 +131,9 @@ tbody {
 th {
     border-right: 1px solid #fff;
     color: $th-label-color;
+    cursor: pointer;
     font-weight: 600;
+    position: relative;
     padding: 11px 10px 12px 15px;
     text-align: left;
 
