@@ -3,18 +3,21 @@
         <h2 class="product-list__header-label">Add New Product</h2>
         <v-text-input
             label="Product Name"
+            :value = "name"
             placeholder="Enter Product Name"
             @input="productName">
         </v-text-input>
 
         <v-text-input
             label="Price"
+            :value="price"
             placeholder="Enter Price"
             @input="productPrice">
         </v-text-input>
 
         <v-text-input
             label="Category"
+            :value="category"
             placeholder="Enter Category"
             @input="productCategory">
         </v-text-input>
@@ -29,6 +32,7 @@
 <script>
 import VTextInput from '../TextInput/TextInput.vue';
 import VButton from '../Button/Button.vue';
+import Vue from 'vue';
 
 export default {
     name: 'AddNewProduct',
@@ -53,8 +57,32 @@ export default {
         productCategory(category) {
             this.category = category;
         },
-        addProduct(product) {
-            console.log(`${this.name} ${this.price} ${this.category}`);
+        addProduct() {
+            const product = {
+                name: this.name,
+                price: this.price,
+                category: this.category
+            };
+
+            if(this.name || this.price || this.category) {
+                this.$bus.$emit('addNewProduct', product);
+            }
+
+            this.clearProduct();
+        },
+        clearProductName() {
+            this.name = '';
+        },
+        clearProductPrice() {
+            this.price = '';
+        },
+        clearProductCategory() {
+            this.category = '';
+        },
+        clearProduct() {
+            this.clearProductName();
+            this.productPrice();
+            this.productCategory();
         }
     }
 };

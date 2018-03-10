@@ -6,6 +6,7 @@
             :maxlength="maxlength"
             :placeholder="placeholder"
             :required="required"
+            :value="value"
             @input="input">
     </div>
 </template>
@@ -16,6 +17,10 @@ export default {
     props: {
         label: {
             type: String
+        },
+        value: {
+            type: [String, Number],
+            default: ''
         },
         maxlength: {
             type: [String, Number]

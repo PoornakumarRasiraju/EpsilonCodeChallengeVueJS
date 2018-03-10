@@ -1,13 +1,11 @@
 <template>
     <div class="product-list">
-        <!-- <input v-model="search" class="form-control" placeholder="Filter users by name or age"> -->
-
         <table class="product-list__table">
             <thead>
                 <tr>
                     <th v-for="column in columns"
                         v-on:click="sortBy(column)">
-                        <span class="product-list__header-label">{{column}}</span>
+                        <span class="product-list__header-label">{{productLabel(column)}}</span>
                         <i class="fas" 
                             v-if="column == sortColumn" 
                             v-bind:class="ascending ? 'fa-caret-up' : 'fa-caret-down'">
@@ -18,13 +16,10 @@
             <tbody>
                 <tr v-for="row in rows">
                     <td v-for="column in columns"> {{row[column]}}</td>
-                    <!-- <td>{{ product.name }}</td>
-                    <td>{{ product.price }}</td>
-                    <td>{{ product.category }}</td> -->
                 </tr>
             </tbody>
         </table>
-</div>
+    </div>
 </template>
 
 <script>
@@ -37,14 +32,18 @@ export default {
     },
     data() {
         return {
-            sortKey: 'name',
-            ascending: false,
             sortColumn: '',
-            reverse: false,
             search: '',
+            rows: [],
+            ascending: false,
+            reverse: false,
+            sortKey: 'name',
             columns: ['name', 'price', 'category'],
-            rows: []
+            
         };
+    },
+    computed: {
+       
     },
     methods: {
         getProductList() {
@@ -58,6 +57,14 @@ export default {
                     console.log(error);
                 });
         },
+        productLabel(label) {
+            switch(label) {
+                case 'name': return 'Product Name';
+                case 'price': return 'Product Price';
+                case 'category': return 'Product Category';
+                default: return '';
+            }
+        },
         sortBy(column) {
             if (this.sortColumn === column) {
                 this.ascending = !this.ascending;
@@ -70,9 +77,9 @@ export default {
 
             this.rows.sort(function(a, b) {
                 if (a[column] > b[column]) {
-                    return ascending ? 1 : -1
+                    return ascending ? 1 : -1;
                 } else if (a[column] < b[column]) {
-                    return ascending ? -1 : 1
+                    return ascending ? -1 : 1;
                 }
 
                 return 0;
@@ -81,6 +88,9 @@ export default {
     },
     mounted() {
         this.getProductList();
+        this.$bus.$on('addNewProduct', (product) => {
+            this.rows.push(product);
+        });
     }
 };
 </script>
@@ -91,6 +101,7 @@ $table-border-color: #c4c4c4;
 $thead-bg-color: #7a8594;
 $tbody-tr-even-color: #f6f6f6;
 $th-label-color: #fff;
+$th-border-color: #fff;
 $td-label-color: #333;
 
 .product-list {
@@ -129,7 +140,7 @@ tbody {
 }
 
 th {
-    border-right: 1px solid #fff;
+    border-right: 1px solid $th-border-color;
     color: $th-label-color;
     cursor: pointer;
     font-weight: 600;
@@ -140,7 +151,6 @@ th {
     &:last-child {
         border-right: none;
     }
-
 }
 
 td {
