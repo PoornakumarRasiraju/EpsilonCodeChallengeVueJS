@@ -3,6 +3,7 @@
         <label class="text-input__label">{{label}}</label>
         <input 
             type="text"
+            :class="['input-text', validation ? 'valid' : 'not-valid']"
             :maxlength="maxlength"
             :placeholder="placeholder"
             :required="required"
@@ -28,6 +29,10 @@ export default {
         placeholder: {
             type: String
         },
+        validation: {
+            type: Boolean,
+            default: true
+        },
         required: {
             type: Boolean,
             default: false
@@ -52,6 +57,7 @@ export default {
 $input-label-color: #333;
 $input-border-color: #919da9;
 $placeholder-color: #7a8594;
+$not-valid-color: red;
 
 .text-input {
     display: flex;
@@ -64,13 +70,18 @@ $placeholder-color: #7a8594;
     margin: 0;
 }
 
-input[type='text'] {
+.input-text {
     border: 1px solid $input-border-color;
     padding-left: 6px;
     min-height: 30px;
     min-width: 260px;
     margin-top: 2px;
     margin-bottom: 20px;
+
+    &.not-valid {
+        border: 1px solid $not-valid-color;
+        outline: none;
+    }
 }
 
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */

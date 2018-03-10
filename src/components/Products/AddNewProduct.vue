@@ -1,6 +1,6 @@
 <template>
     <div class="product-list__add-product">
-        <h2 class="product-list__header-label">Add New Product</h2>
+        <h2 class="product-list__add-product-header">Add New Product</h2>
         <v-text-input
             label="Product Name"
             :value = "name"
@@ -11,6 +11,7 @@
         <v-text-input
             label="Price"
             :value="price"
+            :validation="validPrice"
             placeholder="Enter Price"
             @input="productPrice">
         </v-text-input>
@@ -44,7 +45,8 @@ export default {
         return {
             name: '',
             price: '',
-            category: ''
+            category: '',
+            validPrice: true
         };
     },
     methods: {
@@ -52,6 +54,14 @@ export default {
             this.name = name;
         },
         productPrice(price) {
+            const DOLLAR_CURRENCY_REGEX = /(?=.*\d)^\$?(([1-9]\d{0,2}(,\d{3})*)|0)?(\.\d{1,2})?$/;
+            
+            if(!price || DOLLAR_CURRENCY_REGEX.test(price)) {
+                this.validPrice = true;
+            } else {
+                this.validPrice = false;
+            }
+
             this.price = price;
         },
         productCategory(category) {
@@ -60,15 +70,21 @@ export default {
         addProduct() {
             const product = {
                 name: this.name,
-                price: this.price,
+                price: this.dollarSymbol(this.price),
                 category: this.category
             };
 
-            if(this.name || this.price || this.category) {
+            if((this.name || this.price || this.category) && this.validPrice) {
                 this.$bus.$emit('addNewProduct', product);
+                this.clearProduct();
             }
-
-            this.clearProduct();
+        },
+        dollarSymbol(dollar) {
+            if(this.price.indexOf('$') === 0) {
+                return dollar;
+            } else {
+                return '$'+dollar;
+            }
         },
         clearProductName() {
             this.name = '';
@@ -90,16 +106,19 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+$add-product-border-color: #c4c4c4;
+$add-product-color: #333;
+
 .product-list__add-product {
+    color: $add-product-color;
     display: flex;
     flex-direction: column;
     flex: 1;
-    border: 1px solid #c4c4c4;
+    border: 1px solid $add-product-border-color;
     padding: 2px 19px 20px 20px;
 }
 
-.product-list__header-label {
-    color: #333;
+.product-list__add-product-header {
     font-size: 15px;
     font-weight: 600;
 }
