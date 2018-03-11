@@ -1,5 +1,5 @@
 <template>
-    <button class="button button--primary" type="button" @click="clickHandler">{{label}}</button>
+    <button class="button" :class="classes" type="button" @click="clickHandler">{{label}}</button>
 </template>
 
 <script>
@@ -8,12 +8,13 @@ export default {
     props: {
         label: {
             type: String
+        },
+        classes: {
+            type: String,
+            default: 'button--primary'
         }
     },
     methods: {
-        /*
-        * Handler for click events 
-        */
         clickHandler() {
             this.$emit('buttonClick');
         }

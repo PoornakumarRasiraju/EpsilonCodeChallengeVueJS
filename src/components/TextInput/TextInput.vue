@@ -3,7 +3,7 @@
         <label class="text-input__label">{{label}}</label>
         <input 
             type="text"
-            :class="['input-text', validation ? 'valid' : 'not-valid']"
+            :class="['text__input-type', validation ? 'valid' : 'not-valid']"
             :maxlength="maxlength"
             :placeholder="placeholder"
             :required="required"
@@ -70,11 +70,10 @@ $not-valid-color: red;
     margin: 0;
 }
 
-.input-text {
+.text__input-type {
     border: 1px solid $input-border-color;
     padding-left: 6px;
     min-height: 30px;
-    min-width: 260px;
     margin-top: 2px;
     margin-bottom: 20px;
 

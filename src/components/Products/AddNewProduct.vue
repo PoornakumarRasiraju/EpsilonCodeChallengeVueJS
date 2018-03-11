@@ -1,38 +1,47 @@
 <template>
-    <div class="product-list__add-product">
-        <h2 class="product-list__add-product-header">Add New Product</h2>
-        <v-text-input
-            label="Product Name"
-            :value = "name"
-            placeholder="Enter Product Name"
-            @input="productName">
-        </v-text-input>
+    <section>
+        <div class="product-list__add-product">
+            <h2 class="product-list__add-product-header">Add New Product</h2>
+            <v-text-input
+                label="Product Name"
+                :value = "name"
+                placeholder="Enter Product Name"
+                @input="productName"
+                :validation="validName">
+            </v-text-input>
 
-        <v-text-input
-            label="Price"
-            :value="price"
-            :validation="validPrice"
-            placeholder="Enter Price"
-            @input="productPrice">
-        </v-text-input>
+            <v-text-input
+                label="Price"
+                :value="price"
+                placeholder="Enter Price"
+                @input="productPrice"
+                :validation="validPrice">
+            </v-text-input>
 
-        <v-text-input
-            label="Category"
-            :value="category"
-            placeholder="Enter Category"
-            @input="productCategory">
-        </v-text-input>
+            <v-text-input
+                label="Category"
+                :value="category"
+                placeholder="Enter Category"
+                @input="productCategory"
+                :validation="validCategory">
+            </v-text-input>
 
-        <v-button
-            label="Add Product"
-            @buttonClick="addProduct">
-        </v-button>
-    </div>
+            <v-button
+                label="Add Product"
+                @buttonClick="addProduct"
+                classes="button--primary">
+            </v-button>
+        </div>
+
+        <p v-if="productAdded" class="product-list__add-product-success">
+            <strong>{{productAdded}} product was successfully added to the product list.</strong>
+        </p>
+    </section>
 </template>
 
 <script>
-import VTextInput from '../TextInput/TextInput.vue';
-import VButton from '../Button/Button.vue';
+import VTextInput from '../TextInput/TextInput';
+import VButton from '../Button/Button';
 import Vue from 'vue';
 
 export default {
@@ -46,11 +55,19 @@ export default {
             name: '',
             price: '',
             category: '',
-            validPrice: true
+            productAdded: '',
+            validName: true,
+            validPrice: true,
+            validCategory: true
         };
     },
     methods: {
         productName(name) {
+            if(name) {
+                this.validName = true;
+                this.productAdded = '';
+            }
+
             this.name = name;
         },
         productPrice(price) {
@@ -63,8 +80,14 @@ export default {
             }
 
             this.price = price;
+            this.productAdded = '';
         },
         productCategory(category) {
+            if(category) {
+                this.validCategory = true;
+                this.productAdded = '';
+            }
+
             this.category = category;
         },
         addProduct() {
@@ -74,8 +97,21 @@ export default {
                 category: this.category
             };
 
-            if((this.name || this.price || this.category) && this.validPrice) {
+            if(!this.name) {
+                this.validName = false;
+            }
+
+            if(!this.price) {
+                this.validPrice = false;
+            }
+
+            if(!this.category) {
+                this.validCategory = false;
+            }
+
+            if(this.validateForm() && this.validPrice) {
                 this.$bus.$emit('addNewProduct', product);
+                this.productAdded = this.name;
                 this.clearProduct();
             }
         },
@@ -86,19 +122,17 @@ export default {
                 return '$'+dollar;
             }
         },
-        clearProductName() {
-            this.name = '';
-        },
-        clearProductPrice() {
-            this.price = '';
-        },
-        clearProductCategory() {
-            this.category = '';
+        validateForm() {
+            if(this.name && this.price && this.category) {
+                return true;
+            } 
+
+            return false;
         },
         clearProduct() {
-            this.clearProductName();
-            this.productPrice();
-            this.productCategory();
+            this.name = '';
+            this.price = '';
+            this.category = '';
         }
     }
 };
@@ -108,6 +142,12 @@ export default {
 <style scoped lang="scss">
 $add-product-border-color: #c4c4c4;
 $add-product-color: #333;
+
+section {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
 
 .product-list__add-product {
     color: $add-product-color;
@@ -121,5 +161,10 @@ $add-product-color: #333;
 .product-list__add-product-header {
     font-size: 15px;
     font-weight: 600;
+}
+
+.product-list__add-product-success {
+    color: #155724;
+    font-size: 12px;
 }
 </style>

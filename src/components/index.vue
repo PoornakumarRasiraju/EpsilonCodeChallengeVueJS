@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import ProductList from './Products/ProductList.vue';
+import ProductList from './Products/ProductList';
 import AddNewProduct from './Products/AddNewProduct';
 
 export default {
@@ -17,12 +17,7 @@ export default {
   components: {
     ProductList,
     AddNewProduct
-  },
-  data() {
-    return {
-      
-    };
-  },
+  }
 };
 </script>
 
