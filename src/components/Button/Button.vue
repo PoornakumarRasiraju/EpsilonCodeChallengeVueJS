@@ -22,19 +22,20 @@ export default {
 }
 </script>
 
-<style scoped>
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="scss">
 button, input[type="submit"] {
     background: none;
     color: inherit;
     border: none;
     padding: 0;
-    font: inherit;
     cursor: pointer;
     outline: inherit;
 }
 
 .button {
     border-radius: 1px;
+    font-family: "Open Sans";
     font-size: 12px;
     font-weight: 600;
     padding: 6px 12px 6px 10px;

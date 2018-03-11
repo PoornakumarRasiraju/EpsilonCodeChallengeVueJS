@@ -4,6 +4,7 @@
             <h2 class="product-list__add-product-header">Add New Product</h2>
             <v-text-input
                 label="Product Name"
+                id="productName"
                 :value = "name"
                 placeholder="Enter Product Name"
                 @input="productName"
@@ -12,6 +13,7 @@
 
             <v-text-input
                 label="Price"
+                id="productPrice"
                 :value="price"
                 placeholder="Enter Price"
                 @input="productPrice"
@@ -20,6 +22,7 @@
 
             <v-text-input
                 label="Category"
+                id="productCategory"
                 :value="category"
                 placeholder="Enter Category"
                 @input="productCategory"
@@ -150,7 +153,6 @@ section {
 }
 
 .product-list__add-product {
-    color: $add-product-color;
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -161,6 +163,8 @@ section {
 .product-list__add-product-header {
     font-size: 15px;
     font-weight: 600;
+    margin-bottom: 20px;
+    margin-top: 14px;
 }
 
 .product-list__add-product-success {

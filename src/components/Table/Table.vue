@@ -87,6 +87,12 @@ $th-label-color: #fff;
 $th-border-color: #fff;
 $td-label-color: #333;
 
+.fas {
+    font-size: 18px;
+    position: absolute;
+    top: 11px;
+}
+
 table {
     border: 1px solid $table-border-color;
     border-collapse: collapse;
@@ -94,20 +100,26 @@ table {
     width: 100%;
 }
 
-th {
-    span {
-        margin-right: 15px;
-    }
-}
-
-.fas {
-    font-size: 18px;
-    position: absolute;
-    top: 8px;
-}
-
 thead {
     background-color: $thead-bg-color;
+}
+
+th {
+    border-right: 1px solid $th-border-color;
+    color: $th-label-color;
+    cursor: pointer;
+    position: relative;
+    padding: 11px 10px 12px 15px;
+    text-align: left;
+
+    span {
+        font-weight: normal;
+        margin-right: 15px;
+    }
+
+    &:last-child {
+        border-right: none;
+    }
 }
 
 tbody {
@@ -115,20 +127,6 @@ tbody {
         &:nth-child(even) {
             background-color: $tbody-tr-even-color;
         }
-    }
-}
-
-th {
-    border-right: 1px solid $th-border-color;
-    color: $th-label-color;
-    cursor: pointer;
-    font-weight: 600;
-    position: relative;
-    padding: 11px 10px 12px 15px;
-    text-align: left;
-
-    &:last-child {
-        border-right: none;
     }
 }
 

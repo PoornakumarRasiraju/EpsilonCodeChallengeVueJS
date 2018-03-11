@@ -53,6 +53,7 @@ export default {
 .product-list {
     display: flex;
     flex: 3;
+    margin-bottom: 30px;
     margin-right: 30px;
 }
 </style>

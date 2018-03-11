@@ -23,6 +23,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.products {
+  margin-bottom: 30px;
+}
+
 .products__header-label {
   color: #333;
   font-size: 22px;
@@ -39,5 +43,11 @@ export default {
 .products__table {
   display: flex;
   flex: 1;
+}
+
+@media (min-width : 0px) and (max-width : 580px) {
+  .products__section {
+    flex-direction: column;
+  }
 }
 </style>

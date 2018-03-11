@@ -1,8 +1,9 @@
 <template>
     <div class="text-input">
-        <label class="text-input__label">{{label}}</label>
+        <label :for="id" class="text-input__label">{{label}}</label>
         <input 
             type="text"
+            :id="id"
             :class="['text__input-type', validation ? 'valid' : 'not-valid']"
             :maxlength="maxlength"
             :placeholder="placeholder"
@@ -18,6 +19,10 @@ export default {
     props: {
         label: {
             type: String
+        },
+        id: {
+            type: String,
+            default: ''
         },
         value: {
             type: [String, Number],
@@ -62,6 +67,7 @@ $not-valid-color: red;
 .text-input {
     display: flex;
     flex-direction: column;
+    margin-bottom: 20px;
 }
 
 .text-input__label {
@@ -72,11 +78,12 @@ $not-valid-color: red;
 
 .text__input-type {
     border: 1px solid $input-border-color;
+    font-size: 12px;
+    font-family: 'Open Sans';
     padding-left: 6px;
     min-height: 30px;
     margin-top: 2px;
-    margin-bottom: 20px;
-
+    
     &.not-valid {
         border: 1px solid $not-valid-color;
         outline: none;

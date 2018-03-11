@@ -24,6 +24,6 @@ export default class App extends Vue {}
 }
 
 body {
-  margin: 60px 60px;
+  margin: 30px 60px;
 }
 </style>
