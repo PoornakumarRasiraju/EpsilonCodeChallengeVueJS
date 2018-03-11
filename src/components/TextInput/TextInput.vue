@@ -80,8 +80,8 @@ $not-valid-color: red;
     border: 1px solid $input-border-color;
     font-size: 12px;
     font-family: 'Open Sans';
-    padding-left: 6px;
-    min-height: 30px;
+    padding: 6px;
+    line-height: 17px;
     margin-top: 2px;
     
     &.not-valid {

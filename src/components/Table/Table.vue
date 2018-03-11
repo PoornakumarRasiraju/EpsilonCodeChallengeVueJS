@@ -63,7 +63,7 @@ export default {
 
             let ascending = this.ascending;
 
-            this.rows.sort(function(a, b) {
+            this.rows.sort((a, b) => {
                 if (a[column] > b[column]) {
                     return ascending ? 1 : -1;
                 } else if (a[column] < b[column]) {
