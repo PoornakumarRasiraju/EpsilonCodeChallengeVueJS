@@ -10,7 +10,7 @@
 
 <script>
 import VTable from '../Table/Table';
-import Vue from 'vue';
+import axios from 'axios';
 
 export default {
     name: 'ProductList',
@@ -30,9 +30,9 @@ export default {
         getProductList() {
             const URL = 'http://usweb.dotomi.com/resources/swfs/cookies.json';
 
-            return this.$http.get(URL)
+            return axios.get(URL)
                 .then( response => {
-                    this.rows = response.body;
+                    this.rows = response.data;
                 })
                 .catch( error => {
                     console.log(error);
