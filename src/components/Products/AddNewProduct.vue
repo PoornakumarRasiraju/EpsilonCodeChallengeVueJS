@@ -160,6 +160,7 @@ $add-product-color: #333;
     padding: 2px 19px 20px 20px;
 
     h2 {
+        color: $add-product-color;
         font-size: 15px;
         font-weight: 600;
         margin-bottom: 20px;
