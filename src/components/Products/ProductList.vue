@@ -3,7 +3,8 @@
         <v-table
             :sortKey="sortKey"
             :columns="columns"
-            :rows="rows">
+            :rows="rows"
+            :rowsUpdated="rowsUpdated">
         </v-table>
     </div>
 </template>
@@ -20,6 +21,7 @@ export default {
     data() {
         return {
             rows: [],
+            rowsUpdated: 0,
             sortKey: 'name',
             columns: ['name', 'price', 'category'],
             
@@ -43,6 +45,7 @@ export default {
         this.getProductList();
         this.$bus.$on('addNewProduct', (product) => {
             this.rows.push(product);
+            this.rowsUpdated = this.rows.length;
         });
     }
 };

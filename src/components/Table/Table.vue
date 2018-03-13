@@ -33,6 +33,9 @@ export default {
         },
         rows: {
             type: Array
+        },
+        rowsUpdated: {
+            type: Number
         }
     },
     data() {
@@ -43,6 +46,11 @@ export default {
             reverse: false,
             sortNumbers: ['price']
         };
+    },
+    watch: {
+        rowsUpdated(newVal, oldVal) {
+            this.sortColumn = '';
+        }
     },
     computed: {},
     methods: {
