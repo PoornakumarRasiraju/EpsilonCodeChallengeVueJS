@@ -1,7 +1,7 @@
 <template>
   <section class="products">
-    <h1 class="products__header-label">Product List</h1>
-    <div class="products__section">
+    <h1>Product List</h1>
+    <div class="products__wrapper">
       <product-list></product-list>
       <add-new-product></add-new-product>
     </div>
@@ -25,28 +25,23 @@ export default {
 <style scoped lang="scss">
 .products {
   margin-bottom: 30px;
+
+  h1 {
+    color: #333;
+    font-size: 22px;
+    font-weight: normal;
+    margin-bottom: 20px;
+  }
 }
 
-.products__header-label {
-  color: #333;
-  font-size: 22px;
-  font-weight: normal;
-  margin-bottom: 20px;
-}
-
-.products__section {
+.products__wrapper {
   display: flex;
   flex: 1;
   align-items: flex-start;
 }
 
-.products__table {
-  display: flex;
-  flex: 1;
-}
-
 @media (min-width : 0px) and (max-width : 580px) {
-  .products__section {
+  .products__wrapper {
     flex-direction: column;
   }
 }

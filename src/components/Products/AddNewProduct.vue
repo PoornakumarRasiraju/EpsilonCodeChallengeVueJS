@@ -1,7 +1,7 @@
 <template>
-    <section>
-        <div class="product-list__add-product">
-            <h2 class="product-list__add-product-header">Add New Product</h2>
+    <div class="product-list__add-new-product">
+        <section class="product-list__add-product">
+            <h2>Add New Product</h2>
             <v-text-input
                 label="Product Name"
                 id="productName"
@@ -34,12 +34,12 @@
                 @buttonClick="addProduct"
                 classes="button--primary">
             </v-button>
-        </div>
+        </section>
 
         <p v-if="productAdded" class="product-list__add-product-success">
             <strong>{{productAdded}} product was successfully added to the product list.</strong>
         </p>
-    </section>
+    </div>
 </template>
 
 <script>
@@ -146,7 +146,7 @@ export default {
 $add-product-border-color: #c4c4c4;
 $add-product-color: #333;
 
-section {
+.product-list__add-new-product {
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -158,13 +158,13 @@ section {
     flex: 1;
     border: 1px solid $add-product-border-color;
     padding: 2px 19px 20px 20px;
-}
 
-.product-list__add-product-header {
-    font-size: 15px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    margin-top: 14px;
+    h2 {
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        margin-top: 14px;
+    }
 }
 
 .product-list__add-product-success {
