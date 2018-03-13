@@ -74,7 +74,7 @@ export default {
             this.name = name;
         },
         productPrice(price) {
-            const DOLLAR_CURRENCY_REGEX = /(?=.*\d)^\$?(([1-9]\d{0,2}(,\d{3})*)|0)?(\.\d{1,2})?$/;
+            const DOLLAR_CURRENCY_REGEX = /^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$/;
             
             if(!price || DOLLAR_CURRENCY_REGEX.test(price)) {
                 this.validPrice = true;
@@ -94,12 +94,6 @@ export default {
             this.category = category;
         },
         addProduct() {
-            const product = {
-                name: this.name,
-                price: this.dollarSymbol(this.price),
-                category: this.category
-            };
-
             if(!this.name) {
                 this.validName = false;
             }
@@ -113,6 +107,12 @@ export default {
             }
 
             if(this.validateForm() && this.validPrice) {
+                const product = {
+                    name: this.name,
+                    price: this.dollarSymbol(this.price),
+                    category: this.category
+                };
+
                 this.$bus.$emit('addNewProduct', product);
                 this.productAdded = this.name;
                 this.clearProduct();

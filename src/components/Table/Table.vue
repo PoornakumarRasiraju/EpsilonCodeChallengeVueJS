@@ -40,7 +40,8 @@ export default {
             sortColumn: '',
             search: '',
             ascending: false,
-            reverse: false
+            reverse: false,
+            sortNumbers: ['price']
         };
     },
     computed: {},
@@ -63,10 +64,36 @@ export default {
 
             let ascending = this.ascending;
 
+            if(this.sortNumbers.includes(column)) {
+                this.sortNumber(column, ascending);
+            } else {
+                this.sortString(column, ascending);
+            }
+        },
+        sortString(column, ascending) {
             this.rows.sort((a, b) => {
-                if (a[column] > b[column]) {
+                const valueA = a[column].toUpperCase();
+                const valueB = b[column].toUpperCase();
+
+                if (valueA > valueB) {
                     return ascending ? 1 : -1;
-                } else if (a[column] < b[column]) {
+                } else if (valueA < valueB) {
+                    return ascending ? -1 : 1;
+                }
+
+                return 0;
+            })
+        },
+        sortNumber(column, ascending) {
+            this.rows.sort((a, b) => {
+                let valueA = a[column];
+                let valueB = b[column];
+                const valueANum = valueA.indexOf('$') === 0 ? parseFloat(valueA.substr(1)) : parseFloat(valueA);
+                const valueBNum = valueB.indexOf('$') === 0 ? parseFloat(valueB.substr(1)) : parseFloat(valueB);
+
+                if (valueANum > valueBNum) {
+                    return ascending ? 1 : -1;
+                } else if (valueANum < valueBNum) {
                     return ascending ? -1 : 1;
                 }
 
